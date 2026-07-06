@@ -9,9 +9,9 @@ export const siteConfig = {
   linkedin: "https://linkedin.com/in/ashishbajagain",
   headline: "Full-Stack Developer",
   subheadline:
-    "10+ Years Experience | AI-Assisted Development | React, Next.js, Node.js, PHP, WordPress",
+    "10+ Years Experience | AI-Assisted Development | PHP, WordPress, React, Next.js, Node.js",
   tagline:
-    "I build scalable web platforms—from enterprise WordPress systems to modern React and Next.js applications—with a focus on performance, clean architecture, and reliable delivery.",
+    "I build scalable web platforms-from enterprise WordPress systems to modern React and Next.js applications-with a focus on performance, clean architecture, and reliable delivery.",
 };
 
 export const navLinks = [
@@ -25,12 +25,12 @@ export const navLinks = [
 export const stats = [
   { label: "Years Experience", value: "10+" },
   { label: "Projects Delivered", value: "100+" },
-  { label: "Technologies", value: "15+" },
+  { label: "Technologies", value: "10+" },
 ] as const;
 
 export const workExperience = [
   {
-    role: "Team Lead · Sr. WordPress Developer",
+    role: "Team Lead | Senior WordPress Architect | Full-Stack Developer",
     company: "Devfinity",
     period: "2021 – Present",
     location: "Salt Lake City, UT · Remote",
@@ -41,7 +41,7 @@ export const workExperience = [
     ],
   },
   {
-    role: "Sr. WordPress Developer",
+    role: "Sr. Backend Developer",
     company: "Pigment AB",
     period: "2018 – 2021",
     location: "Stockholm, Sweden",

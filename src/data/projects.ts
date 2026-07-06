@@ -24,6 +24,9 @@ export const projectFilters: { id: ProjectCategory; label: string }[] = [
   { id: "wordpress", label: "WordPress" },
 ];
 
+/** Neutral preview used when a project has no dedicated screenshot */
+export const defaultProjectImage = "/projects/placeholder.svg";
+
 /** Featured projects sourced from https://www.linkedin.com/in/ashishbajagain/ */
 export const projects: Project[] = [
   {
@@ -80,6 +83,7 @@ export const projects: Project[] = [
     liveLabel: "WordPress.org",
     categories: ["wordpress"],
     imageGradient: "from-violet-600 via-purple-600 to-fuchsia-600",
+    image: "/projects/simple-single-post-exporter.png",
     context: "Open source · WordPress.org",
   },
   {

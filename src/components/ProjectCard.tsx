@@ -4,7 +4,7 @@ import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import { GithubIcon } from "@/components/icons/BrandIcons";
 import { motion } from "framer-motion";
-import type { Project } from "@/data/projects";
+import { defaultProjectImage, type Project } from "@/data/projects";
 
 interface ProjectCardProps {
   project: Project;
@@ -13,6 +13,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const hasLinks = Boolean(project.liveUrl || project.githubUrl);
+  const imageSrc = project.image ?? defaultProjectImage;
 
   return (
     <motion.article
@@ -25,27 +26,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       <div
         className={`relative h-36 overflow-hidden bg-gradient-to-br ${project.imageGradient} sm:h-40`}
       >
-        {project.image ? (
-          <Image
-            src={project.image}
-            alt=""
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <>
-            <div
-              className="absolute inset-0 grid-pattern opacity-25"
-              aria-hidden
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-5xl font-bold text-white/25">
-                {project.title.charAt(0)}
-              </span>
-            </div>
-          </>
-        )}
+        <Image
+          src={imageSrc}
+          alt=""
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        />
         <div
           className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"
           aria-hidden
