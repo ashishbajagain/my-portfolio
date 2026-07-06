@@ -1,6 +1,7 @@
 "use client";
 
 import { ExternalLink } from "lucide-react";
+import Image from "next/image";
 import { GithubIcon } from "@/components/icons/BrandIcons";
 import { motion } from "framer-motion";
 import type { Project } from "@/data/projects";
@@ -22,14 +23,33 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-surface/50 backdrop-blur-sm transition-shadow hover:shadow-lg hover:shadow-accent/5"
     >
       <div
-        className={`relative h-36 bg-gradient-to-br ${project.imageGradient} sm:h-40`}
+        className={`relative h-36 overflow-hidden bg-gradient-to-br ${project.imageGradient} sm:h-40`}
       >
-        <div className="absolute inset-0 grid-pattern opacity-25" aria-hidden />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-5xl font-bold text-white/25">
-            {project.title.charAt(0)}
-          </span>
-        </div>
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <>
+            <div
+              className="absolute inset-0 grid-pattern opacity-25"
+              aria-hidden
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-5xl font-bold text-white/25">
+                {project.title.charAt(0)}
+              </span>
+            </div>
+          </>
+        )}
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"
+          aria-hidden
+        />
         {project.featured && (
           <span className="absolute left-3 top-3 rounded-full bg-black/40 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
             Featured
@@ -46,7 +66,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <h3 className="text-base font-semibold leading-snug text-foreground sm:text-lg">
           {project.title}
         </h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-muted line-clamp-3">
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
           {project.description}
         </p>
         <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Tech stack">

@@ -11,6 +11,8 @@ export interface Project {
   category: Exclude<ProjectCategory, "all">;
   featured?: boolean;
   imageGradient: string;
+  /** Local path under /public, e.g. /projects/svartaladan.webp */
+  image?: string;
   /** e.g. Pigment AB · Stockholm */
   context?: string;
 }
@@ -38,10 +40,13 @@ export const projects: Project[] = [
       "Zendesk",
       "BankID",
     ],
+    liveUrl: "https://svartaladan.se/",
+    liveLabel: "Svarta Lådan",
     category: "full-stack",
     featured: true,
     imageGradient: "from-emerald-600 via-teal-600 to-cyan-600",
-    context: "Pigment AB · Subscription e-commerce",
+    image: "/projects/svartaladan.webp",
+    context: "Pigment AB · Svarta Lådan",
   },
   {
     id: "subscription-erp-platform",
@@ -57,10 +62,13 @@ export const projects: Project[] = [
       "Swedbank Pay",
       "Mailchimp",
     ],
+    liveUrl: "https://www.affarsvarlden.se/",
+    liveLabel: "Affärsvärlden",
     category: "wordpress",
     featured: true,
     imageGradient: "from-blue-600 via-indigo-600 to-violet-600",
-    context: "Financial publication · Enterprise scale",
+    image: "/projects/affarsvarlden.png",
+    context: "Affärsvärlden · Enterprise scale",
   },
   {
     id: "simple-single-post-exporter",
@@ -81,9 +89,12 @@ export const projects: Project[] = [
       "Personal job application tracker with a 9-stage pipeline, Kanban board, follow-up reminders, ghost detection, and analytics—built to manage applications across LinkedIn, Seek, and company sites in one place.",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "SQLite", "shadcn/ui"],
     githubUrl: "https://github.com/ashishbajagain/jobflow",
+    liveUrl: "https://jobflow-ashishbajagains-projects.vercel.app/",
+    liveLabel: "Live demo",
     category: "full-stack",
     featured: true,
     imageGradient: "from-cyan-600 via-blue-600 to-indigo-600",
+    image: "/projects/jobflow.png",
     context: "Open source · Next.js",
   },
   {
