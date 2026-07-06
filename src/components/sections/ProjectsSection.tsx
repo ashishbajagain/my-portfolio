@@ -18,7 +18,7 @@ export function ProjectsSection() {
     const list =
       activeFilter === "all"
         ? projects
-        : projects.filter((p) => p.category === activeFilter);
+        : projects.filter((p) => p.categories.includes(activeFilter));
 
     return [...list].sort((a, b) => {
       if (a.featured && !b.featured) return -1;
