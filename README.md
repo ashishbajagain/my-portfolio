@@ -1,6 +1,6 @@
 # Portfolio Website
 
-A modern, professional one-page portfolio built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion. Features smooth scroll navigation, scroll-spy active states, glassmorphism design, and a contact form powered by Formspree.
+A modern, professional one-page portfolio built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion. Features smooth scroll navigation, scroll-spy active states, glassmorphism design, and a contact form powered by Resend.
 
 ## Features
 
@@ -51,11 +51,11 @@ cp .env.example .env.local
 
 4. **Approach** — Customize philosophy cards in `src/data/approach.ts`.
 
-5. **Contact form** — Sign up at [Formspree](https://formspree.io), create a form, and add your form ID to `.env.local`:
+5. **Contact form** — Get a free API key at [Resend](https://resend.com), then add to `.env.local`:
 
    ```
-   NEXT_PUBLIC_FORMSPREE_ID=your_form_id_here
-   NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+   RESEND_API_KEY=re_your_api_key_here
+   CONTACT_EMAIL=ashish.bajagain@gmail.com
    ```
 
 ### Development
@@ -142,7 +142,8 @@ Deploy to [Vercel](https://vercel.com) (recommended), Netlify, or any platform s
 1. Push your code to GitHub
 2. Import the repository on your hosting platform
 3. Set environment variables:
-   - `NEXT_PUBLIC_FORMSPREE_ID`
+   - `RESEND_API_KEY`
+   - `CONTACT_EMAIL`
    - `NEXT_PUBLIC_SITE_URL`
 4. Deploy
 

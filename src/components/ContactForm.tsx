@@ -13,7 +13,7 @@ const inputStyles =
 export function ContactForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const formspreeId = siteConfig.formspreeId;
+  const [serverError, setServerError] = useState("");
 
   function validate(form: HTMLFormElement): boolean {
     const newErrors: Record<string, string> = {};
@@ -39,20 +39,21 @@ export function ContactForm() {
 
     if (!validate(form)) return;
 
-    if (!formspreeId) {
-      setStatus("error");
-      return;
-    }
-
     setStatus("submitting");
-    const formData = new FormData(form);
+    setServerError("");
+
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value.trim();
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim();
 
     try {
-      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        body: formData,
-        headers: { Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
       });
+
+      const data = await response.json().catch(() => ({}));
 
       if (response.ok) {
         setStatus("success");
@@ -60,33 +61,15 @@ export function ContactForm() {
         setErrors({});
       } else {
         setStatus("error");
+        setServerError(
+          data.error ||
+            "Something went wrong. Please try again or email me directly."
+        );
       }
     } catch {
       setStatus("error");
+      setServerError("Something went wrong. Please try again or email me directly.");
     }
-  }
-
-  if (!formspreeId) {
-    return (
-      <div className="text-center">
-        <p className="text-sm text-muted">
-          To enable the contact form, add your Formspree form ID to{" "}
-          <code className="rounded bg-background px-1.5 py-0.5 text-foreground">
-            NEXT_PUBLIC_FORMSPREE_ID
-          </code>{" "}
-          in your <code className="rounded bg-background px-1.5 py-0.5 text-foreground">.env.local</code> file.
-        </p>
-        <p className="mt-4 text-sm text-muted">
-          Or reach me directly at{" "}
-          <a
-            href={`mailto:${siteConfig.email}`}
-            className="text-accent hover:text-accent-hover"
-          >
-            {siteConfig.email}
-          </a>
-        </p>
-      </div>
-    );
   }
 
   return (
@@ -174,7 +157,10 @@ export function ContactForm() {
 
       {status === "error" && (
         <p className="text-center text-sm text-red-600 dark:text-red-400" role="alert">
-          Something went wrong. Please try again or email me directly.
+          {serverError}{" "}
+          <a href={`mailto:${siteConfig.email}`} className="underline hover:text-red-500">
+            {siteConfig.email}
+          </a>
         </p>
       )}
     </form>

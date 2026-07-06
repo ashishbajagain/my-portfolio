@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { SectionContainer } from "@/components/SectionContainer";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -15,8 +15,16 @@ export function ProjectsSection() {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>("all");
 
   const filteredProjects = useMemo(() => {
-    if (activeFilter === "all") return projects;
-    return projects.filter((p) => p.category === activeFilter);
+    const list =
+      activeFilter === "all"
+        ? projects
+        : projects.filter((p) => p.category === activeFilter);
+
+    return [...list].sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return 0;
+    });
   }, [activeFilter]);
 
   return (
@@ -28,12 +36,12 @@ export function ProjectsSection() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Featured Projects"
-          subtitle="A selection of work spanning modern full-stack apps, frontend tools, and WordPress solutions."
+          subtitle="Enterprise platforms, open-source tools, and full-stack applications from my professional and personal work."
           align="center"
         />
 
         <div
-          className="mb-12 flex flex-wrap justify-center gap-2"
+          className="mb-10 flex flex-wrap justify-center gap-2"
           role="tablist"
           aria-label="Filter projects by category"
         >
@@ -56,20 +64,20 @@ export function ProjectsSection() {
         </div>
 
         <motion.div
-          layout
-          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+          key={activeFilter}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.25 }}
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={index}
-                featured={project.featured}
-              />
-            ))}
-          </AnimatePresence>
+          {filteredProjects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
+          ))}
         </motion.div>
+
+        {filteredProjects.length === 0 && (
+          <p className="py-12 text-center text-muted">No projects in this category.</p>
+        )}
       </div>
     </SectionContainer>
   );
